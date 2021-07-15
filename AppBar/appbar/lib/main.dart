@@ -18,6 +18,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       locale: DevicePreview.locale(context),
       builder: DevicePreview.appBuilder,
       title: 'Flutter Demo',
@@ -32,34 +33,51 @@ class MyApp extends StatelessWidget {
 class MyHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("Flutter"),
-        leading:  IconButton(
-          onPressed:()=>{
-            log("message")
-          }, 
-        icon: 
-        Icon(Icons.menu)
+    return DefaultTabController(
+      length: 3,
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text("Flutter"),
+          leading: IconButton(
+              onPressed: () => {log("message")}, icon: Icon(Icons.menu)),
+          actions: [
+            IconButton(
+                onPressed: () => {log("message")}, icon: Icon(Icons.search)),
+            IconButton(
+                onPressed: () => {log("message")}, icon: Icon(Icons.more_vert)),
+          ],
+          flexibleSpace: Image.asset(
+            'assets/back.jpeg',
+            fit: BoxFit.cover,
+          ),
+          bottom: TabBar(
+            tabs: [
+              Tab(icon: Icon(Icons.directions_car),text: "Cars",),
+              Tab(icon: Icon(Icons.directions_transit)),
+              Tab(icon: Icon(Icons.directions_bike)),
+            ],
+          ),
+          elevation: 18.0,
+          backgroundColor: Colors.pink,
         ),
-        actions: [
-           IconButton(
-          onPressed:()=>{
-            log("message")
-          }, 
-        icon: 
-        Icon(Icons.search)
+        body: TabBarView(
+          children: [
+            // Icon(Icons.directions_car),
+            tab1(),
+            Icon(Icons.directions_transit),
+            Icon(Icons.directions_bike),
+          ],
         ),
-         IconButton(
-          onPressed:()=>{
-            log("message")
-          }, 
-        icon: 
-        Icon(Icons.more_vert)
-        ),
-        ],
-        flexibleSpace: Image.asset('assets/back.jpeg',fit: BoxFit.cover,)
       ),
     );
   }
+}
+
+
+Widget tab1(){
+  return Container(
+    child: Center(
+      child: Text("Test"),
+    ),
+  );
 }
